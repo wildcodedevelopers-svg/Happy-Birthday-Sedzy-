@@ -51,6 +51,12 @@ function cake(c,cx,cy,u){
   [-8,0,8].forEach((d,i)=>{const x=cx+d*u;
     c.fillStyle=i==1?'#6ec6ff':'#ffd23f';c.fillRect(x-1.2*u,cy-20*u,2.4*u,12*u);
     ell(c,x,cy-23.5*u,2*u,3.4*u,'#ff9f1c');ell(c,x,cy-22.8*u,1*u,1.9*u,'#fff3b0')});
+  c.textAlign='center';c.textBaseline='middle';
+  let z=fit(c,'MAKE A WISH',W*.9,12*u,900);
+  c.font=`900 ${z}px ${FONT}`;c.fillStyle='#ff8fb8';c.fillText('MAKE A WISH',cx,cy-44*u);
+  z=fit(c,'Close your eyes, think of your wish',W*.9,5*u,700);
+  c.font=`700 ${z}px ${FONT}`;c.fillStyle='#fff';c.fillText('Close your eyes, think of your wish',cx,cy+37*u);
+  c.fillText('then blow out the candles',cx,cy+37*u+z*1.5);
 }
 function rose(c,cx,cy,s){
   c.lineCap='round';c.strokeStyle='#2f9e5b';c.lineWidth=2.4*s;
@@ -131,7 +137,7 @@ function scatter(){
 }
 function show(){
   if(step<0)scatter();else setScene(step);
-  hint.textContent=step<0?'TAP TO OPEN':step==SCENES.length-1?'TAP TO REPLAY':'TAP TO CONTINUE';
+  hint.textContent=step<0?'TAP TO OPEN':step==1?'TAP AFTER YOU MAKE YOUR WISH':step==SCENES.length-1?'TAP TO REPLAY':'TAP TO CONTINUE';
 }
 function tap(){
   const n=performance.now();if(n-lastTap<350)return;lastTap=n;
