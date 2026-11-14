@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d1c">
+  <title>Something Special Is Coming</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      padding: 24px; color: #fff; text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      background: radial-gradient(ellipse at 50% 15%, #39204e 0%, #191326 42%, #09080e 100%);
+    }
+    main { width: min(100%, 620px); }
+    .eyebrow {
+      color: #e6c8a5; letter-spacing: .28em; text-transform: uppercase;
+      font: 12px/1.5 Arial, sans-serif;
+    }
+    h1 { margin: 18px 0 12px; font-size: clamp(38px, 9vw, 68px); font-weight: 400; }
+    p { color: #d8cfdf; font: 16px/1.7 Arial, sans-serif; }
+    .timer {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      margin: 34px 0;
+    }
+    .unit {
+      padding: 20px 8px; border: 1px solid #ffffff25; border-radius: 16px;
+      background: #ffffff0c; backdrop-filter: blur(8px);
+    }
+    .number { display: block; font: 600 clamp(28px, 7vw, 44px)/1 Arial, sans-serif; }
+    .label { display: block; margin-top: 10px; color: #c9b9d6; font: 10px Arial, sans-serif; letter-spacing: .16em; }
+    .note { color: #e6c8a5; font-style: italic; }
+    @media (max-width: 380px) { .timer { gap: 6px; } .unit { padding: 16px 4px; } .label { letter-spacing: .08em; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">A little surprise is waiting</div>
+    <h1>For Sedzy ✨</h1>
+    <p>Something special will be revealed when the clock strikes midnight.</p>
+    <section class="timer" aria-label="Countdown">
+      <div class="unit"><span class="number" id="days">00</span><span class="label">DAYS</span></div>
+      <div class="unit"><span class="number" id="hours">00</span><span class="label">HOURS</span></div>
+      <div class="unit"><span class="number" id="minutes">00</span><span class="label">MINUTES</span></div>
+      <div class="unit"><span class="number" id="seconds">00</span><span class="label">SECONDS</span></div>
+    </section>
+    <p class="note">The wait will be worth it. 💜</p>
+  </main>
+  <script>
+    // 17 November 2026, 00:00 in South Africa (UTC+02:00).
+    const launchTime = new Date("2026-11-17T00:00:00+02:00").getTime();
+    const birthdayPage = new URL("./index.html", window.location.href).href;
+    const fields = {
+      days: document.getElementById("days"),
+      hours: document.getElementById("hours"),
+      minutes: document.getElementById("minutes"),
+      seconds: document.getElementById("seconds")
+    };
+
+    function updateCountdown() {
+      const remaining = launchTime - Date.now();
+      if (remaining <= 0) {
+        window.location.replace(birthdayPage);
+        return;
+      }
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+      fields.days.textContent = String(days).padStart(2, "0");
+      fields.hours.textContent = String(hours).padStart(2, "0");
+      fields.minutes.textContent = String(minutes).padStart(2, "0");
+      fields.seconds.textContent = String(seconds).padStart(2, "0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
